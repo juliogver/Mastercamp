@@ -9,4 +9,3 @@ print("monzeub")
 
 print("bonjour")
 print("enzo le zemel")
-print("test")
