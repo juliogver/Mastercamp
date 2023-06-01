@@ -1,12 +1,7 @@
-"""
-This is a test module.
-"""
-
-
 print("hello world")
 print("jules")
 print("monzeub")
-
-print("bonjour")
 print("enzo le zemel")
 print("king enzo")
+print("je suce")
+print("lala")
