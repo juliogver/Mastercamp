@@ -1,7 +1,0 @@
-print("hello world")
-print("jules")
-print("monzeub")
-print("enzo le zemel")
-print("king enzo")
-print("je suce")
-print("lala")
