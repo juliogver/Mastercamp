@@ -1,38 +1,48 @@
 import pandas as pd
-import string
+from nltk.corpus import wordnet
 
-# Chargement du fichier CSV
-df = pd.read_csv('./Datas/Dataset.csv')
+# Chemin d'accès au fichier CSV
+csv_file = "./Datas/test.csv"
 
-# Affichage du nombre de lignes du fichier CSV original
-print("Nombre de lignes du fichier CSV original:", len(df))
+# Listes de mots synonymes de "Rating" et "Commentary"
+rating_synonyms = ["Rating", "Grade", "Evaluation",
+                   "Score", "Rate", "Mark", "Rank", "Ranking", "Stars"]
+commentary_synonyms = ["Commentary", "Review", "Feedback",
+                       "Opinion", "Comment", "Criticism", "Appreciation", "Appraisal", "Translated"]
 
-# Suppression des doublons basés sur la colonne "Review"
-df = df.drop_duplicates(subset=['Review'])
+# Convertir tous les synonymes en minuscules pour une correspondance insensible à la casse
+rating_synonyms = [syn.lower() for syn in rating_synonyms]
+commentary_synonyms = [syn.lower() for syn in commentary_synonyms]
 
-# Suppression de la colonne "Summary"
-df = df.drop('Summary', axis=1)
+# Lecture du fichier CSV
+df = pd.read_csv(csv_file)
 
-# Suppression des ponctuations (à l'exception des virgules pour les colonnes)
-df = df.applymap(lambda x: x.translate(str.maketrans(
-    "", "", string.punctuation.replace(",", ""))) if isinstance(x, str) else x)
+# Convertir les noms de colonnes en minuscules pour une correspondance insensible à la casse
+df.columns = [col.lower() for col in df.columns]
 
-# Attribution des sentiments en fonction de la colonne "Rate"
-sentiment_mapping = {
-    '1': 'very negative',
-    '2': 'negative',
-    '3': 'neutral',
-    '4': 'positive',
-    '5': 'very positive'
-}
-df['Sentiment'] = df['Rate'].astype(str).map(
-    lambda x: sentiment_mapping.get(x, 'unknown'))
+# Recherche des colonnes correspondant aux synonymes de "Rating" et "Commentary"
+rating_columns = [col for col in df.columns if any(
+    syn in col.lower().split() for syn in rating_synonyms)]
+commentary_columns = [col for col in df.columns if any(
+    syn in col.lower().split() for syn in commentary_synonyms)]
 
-# Suppression des lignes où la colonne "Rate" est vide
-df = df.dropna(subset=['Rate'])
+# Sélection des colonnes d'intérêt
+columns_of_interest = rating_columns + commentary_columns
 
-# Affichage du nombre de lignes du DataFrame modifié
-print("Nombre de lignes du DataFrame modifié:", len(df))
+# Création du nouveau DataFrame avec les colonnes sélectionnées
+new_df = df[columns_of_interest].copy()
 
-# Enregistrement du DataFrame modifié dans un nouveau fichier CSV
-df.to_csv('./Datas/Dataset_modified.csv', index=False)
+# Renommer les colonnes en "Rate", "Review", et "Sentiment"
+new_df = new_df.rename(columns=dict(
+    zip(columns_of_interest, ["Rate", "Review", "Sentiment"])))
+
+# Suppression des lignes où la colonne "Review" est vide
+new_df = new_df.dropna(subset=["Review"])
+
+# Création de la colonne "Sentiment" en fonction de la colonne "Rate"
+new_df["Sentiment"] = new_df["Rate"].apply(
+    lambda x: "very positive" if x == 5 else "positive" if x == 4 else "neutral" if x == 3 else "negative" if x == 2 else "very negative")
+
+# Enregistrement du nouveau DataFrame dans un fichier CSV
+new_csv_file = "output.csv"
+new_df.to_csv(new_csv_file, index=False)
