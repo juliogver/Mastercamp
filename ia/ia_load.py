@@ -11,11 +11,12 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 
 # Load the models
-clf_lr = pickle.load(open('./logistic_regression_model.pkl', 'rb'))
-clf_nn = load_model('./neural_network_model.h5')
+clf_lr = pickle.load(
+    open('./ia/ia_models/logistic_regression_model.pkl', 'rb'))
+clf_nn = load_model('./ia/ia_models/neural_network_model.h5')
 
 # Load the vectorizer
-vectorizer = pickle.load(open('./tfidf_vectorizer.pkl', 'rb'))
+vectorizer = pickle.load(open('./ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
 
 # Preprocessing
 stop_words = set(stopwords.words('english'))

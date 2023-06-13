@@ -46,14 +46,14 @@ X_train_vectors = vectorizer.fit_transform(X_train)
 X_test_vectors = vectorizer.transform(X_test)
 
 # Save the vectorizer
-pickle.dump(vectorizer, open('tfidf_vectorizer.pkl', 'wb'))
+pickle.dump(vectorizer, open('./ia/ia_models/tfidf_vectorizer.pkl', 'wb'))
 
 # Train the Logistic Regression model
 clf_lr = LogisticRegression()
 clf_lr.fit(X_train_vectors, y_train)
 
 # Save the Logistic Regression model
-pickle.dump(clf_lr, open('logistic_regression_model.pkl', 'wb'))
+pickle.dump(clf_lr, open('./ia/ia_models/logistic_regression_model.pkl', 'wb'))
 
 # Evaluate the Logistic Regression model
 y_pred_lr = clf_lr.predict(X_test_vectors)
@@ -79,7 +79,7 @@ clf_nn.compile(loss='categorical_crossentropy',
 clf_nn.fit(X_train_vectors.toarray(), dummy_y_train, epochs=10, batch_size=64)
 
 # Save the neural network
-clf_nn.save('neural_network_model.h5')
+clf_nn.save('./ia/ia_models/neural_network_model.h5')
 
 # Evaluate the neural network
 loss, accuracy = clf_nn.evaluate(X_test_vectors.toarray(), dummy_y_test)

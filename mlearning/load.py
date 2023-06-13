@@ -3,7 +3,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import pickle
 
 # Load the vectorizer
-with open('vectorizer.pkl', 'rb') as file:
+with open('./mlearning/ml_models/vectorizer.pkl', 'rb') as file:
     vectorizer = pickle.load(file)
 
 # Transform the text data into numerical features

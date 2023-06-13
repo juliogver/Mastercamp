@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Chemin d'accès au fichier CSV
-csv_file = "./Datas/test.csv"
+csv_file = "./Datas/Dataset.csv"
 
 # Listes de mots synonymes de "Rating", "Commentary" et "Summary"
 rating_synonyms = ["Rating", "Grade", "Evaluation",
@@ -77,5 +77,5 @@ def map_sentiment(rate):
 new_df["Sentiment"] = new_df["Rate"].apply(map_sentiment)
 
 # Enregistrement du nouveau DataFrame dans un fichier CSV
-new_csv_file = "test_output.csv"
+new_csv_file = "output.csv"
 new_df.to_csv(new_csv_file, index=False)
