@@ -12,8 +12,8 @@ nltk.download('wordnet')
 
 # Load the models
 clf_lr = pickle.load(
-    open('./ia/ia_models/logistic_regression_model.pkl', 'rb'))
-clf_nn = load_model('./ia/ia_models/neural_network_model.h5')
+    open('./ia/ia_models/logistic_regression_model2.pkl', 'rb'))
+clf_nn = load_model('./ia/ia_models/neural_network_model2.h5')
 
 # Load the vectorizer
 vectorizer = pickle.load(open('./ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
@@ -31,8 +31,16 @@ def preprocess_text(text):
 
 
 # Input comments
-comments = ['this is a great product',
-            'I hate this product it is horrible', 'this product is okay', 'very bad', 'good but not exeptional']
+comments = ['This is a great product!',
+            'I hate this product. It is horrible!',
+            'This product is okay.',
+            'Very bad!',
+            'Good but not exceptional.',
+            'I absolutely love this product!',
+            'I am extremely disappointed with this product.',
+            'This product exceeded my expectations.',
+            'I have mixed feelings about this product.',
+            'This is the worst product I have ever purchased.']
 
 # Preprocess the comments
 comments = [preprocess_text(comment) for comment in comments]
@@ -46,9 +54,16 @@ predictions_lr = clf_lr.predict(comment_vectors)
 # Make predictions with the Neural Network
 predictions_nn = clf_nn.predict(comment_vectors.toarray())
 predictions_nn_classes = np.argmax(predictions_nn, axis=1)
-# Print predictions
-for comment, prediction_lr, prediction_nn in zip(comments, predictions_lr, predictions_nn_classes):
+
+
+# Labels
+# Exemple d'étiquettes réelles correspondant aux commentaires
+labels = [5, 1, 3, 0, 4, 5, 1, 5, 2, 0]
+
+# Comparaison avec les étiquettes réelles
+for comment, prediction_lr, prediction_nn, label in zip(comments, predictions_lr, predictions_nn_classes, labels):
     print(f'Comment: {comment}')
     print(f'Logistic Regression Prediction: {prediction_lr}')
     print(f'Neural Network Prediction: {prediction_nn}')
+    print(f'Actual Label: {label}')
     print()
