@@ -9,13 +9,13 @@ from sklearn.metrics import accuracy_score
 import pickle
 
 # Load the dataset
-data = pd.read_csv('./Datas/Dataset.csv')
+data = pd.read_csv('./Datas/output.csv')
 
 # Drop rows with missing values
 data = data.dropna()
 
 # Split the data into input features (X) and target variable (y)
-X = data['Review']
+X = data['Summary']
 y = data['Sentiment']
 
 # Split the data into training and testing sets
