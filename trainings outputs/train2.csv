@@ -1,0 +1,11 @@
+Comment,Rating,processed_text,Rating_LR,Rating_NN
+"Great product, I love it!",5,"great product, love it!",5,5
+It could be better. The packaging was damaged.,3,could better. packaging damaged.,5,4
+It doesn't work at all. Very disappointed.,1,doesn't work all. very disappointed.,1,1
+"Decent quality for the price, but there's definitely better.",3,"decent quality price, there's definitely better.",4,4
+Absolutely incredible! I recommend it to everyone.,5,absolutely incredible! recommend everyone.,5,5
+It's just okay. Nothing extraordinary.,3,okay. nothing extraordinary.,3,1
+I'm not satisfied with this product. It stopped working after a week.,2,i'm not satisfied product. stopped working week.,1,1
+Excellent product! Worth every penny.,5,excellent product! worth every penny.,5,5
+I wouldn't recommend this product. It has many issues.,1,wouldn't recommend product. many issues.,5,5
+"Very good product, but there are a few minor problems.",4,"very good product, minor problems.",5,4
