@@ -6,7 +6,7 @@ def calculate_accuracy(predictions, labels):
     total_predictions = len(predictions)
 
     for i in range(total_predictions):
-        if abs(predictions[i] - labels[i]) <= 1:
+        if predictions[i] == labels[i]:
             correct_predictions += 1
 
     accuracy = (correct_predictions / total_predictions) * 100
@@ -33,5 +33,5 @@ def test_accuracy(csv_file):
 
 
 # Exemple d'utilisation
-csv_file = './Datas/train3.csv'
+csv_file = './trainings outputs/train4.csv'
 test_accuracy(csv_file)
