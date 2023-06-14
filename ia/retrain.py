@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -13,7 +14,6 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 
 # Set the SSL_CERT_FILE environment variable
-import os
 os.environ['SSL_CERT_FILE'] = './cacert.pem'
 
 # Load the models
@@ -23,7 +23,7 @@ clf_lr = pickle.load(
 clf_nn = load_model('./ia/ia_models/neural_network_model2.h5')
 
 # Load the new dataset
-new_data = pd.read_csv('./Datas/dat_out.csv')
+new_data = pd.read_csv('./Datas/concatenated.csv')
 
 # Ajoute les mots à exclure dans la liste des stopwords
 stop_words = set(stopwords.words('english'))

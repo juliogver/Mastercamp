@@ -61,4 +61,4 @@ df['Rating_LR'] = lr_predictions
 df['Rating_NN'] = nn_predictions
 
 # Save the ratings to a new CSV file
-df.to_csv('./Datas/train4.csv', index=False)
+df.to_csv('./trainings outputs/train4.csv', index=False)

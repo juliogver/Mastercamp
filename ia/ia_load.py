@@ -12,8 +12,8 @@ nltk.download('wordnet')
 
 # Load the models
 clf_lr = pickle.load(
-    open('./ia/ia_models/logistic_regression_model2.pkl', 'rb'))
-clf_nn = load_model('./ia/ia_models/neural_network_model2.h5')
+    open('./ia/ia_models/logistic_regression_model3.pkl', 'rb'))
+clf_nn = load_model('./ia/ia_models/neural_network_model3.h5')
 
 # Load the vectorizer
 vectorizer = pickle.load(open('./ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
