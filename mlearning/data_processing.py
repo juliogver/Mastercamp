@@ -73,5 +73,5 @@ def map_sentiment(rate):
 new_df["Sentiment"] = new_df["Rate"].apply(map_sentiment)
 
 # Enregistrement du nouveau DataFrame dans un fichier CSV
-new_csv_file = "./Datas/5_out.csv"
+new_csv_file = f'./{csv_file}_processing.csv'
 new_df.to_csv(new_csv_file, index=False)
