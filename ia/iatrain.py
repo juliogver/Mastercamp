@@ -12,6 +12,9 @@ from keras.layers import Dense
 from keras.utils import to_categorical
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+# Set the SSL_CERT_FILE environment variable
+import os
+os.environ['SSL_CERT_FILE'] = './cacert.pem'
 
 nltk.download('stopwords')
 nltk.download('wordnet')

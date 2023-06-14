@@ -12,6 +12,10 @@ from nltk.stem import WordNetLemmatizer
 nltk.download('stopwords')
 nltk.download('wordnet')
 
+# Set the SSL_CERT_FILE environment variable
+import os
+os.environ['SSL_CERT_FILE'] = './cacert.pem'
+
 # Load the models
 vectorizer = pickle.load(open('./ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
 clf_lr = pickle.load(
