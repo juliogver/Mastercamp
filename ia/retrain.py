@@ -19,11 +19,11 @@ os.environ['SSL_CERT_FILE'] = './cacert.pem'
 # Load the models
 vectorizer = pickle.load(open('./ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
 clf_lr = pickle.load(
-    open('./ia/ia_models/logistic_regression_model2.pkl', 'rb'))
-clf_nn = load_model('./ia/ia_models/neural_network_model2.h5')
+    open('./ia/ia_models/logistic_regression_model3.pkl', 'rb'))
+clf_nn = load_model('./ia/ia_models/neural_network_model3.h5')
 
 # Load the new dataset
-new_data = pd.read_csv('./Datas/concatenated.csv')
+new_data = pd.read_csv('./Datas/test_out_out.csv')
 
 # Ajoute les mots à exclure dans la liste des stopwords
 stop_words = set(stopwords.words('english'))
@@ -74,11 +74,11 @@ clf_nn.add(Dense(num_classes, activation='softmax'))
 clf_nn.compile(loss='categorical_crossentropy',
                optimizer='adam', metrics=['accuracy'])
 clf_nn.fit(X_new_vectors.toarray(), to_categorical(
-    new_data['Sentiment'], num_classes=num_classes), epochs=10, batch_size=64)
+    new_data['Sentiment'], num_classes=num_classes), epochs=150, batch_size=64)
 
 # Save the updated models
-pickle.dump(clf_lr, open('./ia/ia_models/logistic_regression_model3.pkl', 'wb'))
-clf_nn.save('./ia/ia_models/neural_network_model3.h5')
+pickle.dump(clf_lr, open('./ia/ia_models/logistic_regression_model4.pkl', 'wb'))
+clf_nn.save('./ia/ia_models/neural_network_model4.h5')
 
 # Load the test dataset
 test_data = new_data

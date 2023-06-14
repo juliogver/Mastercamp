@@ -33,5 +33,5 @@ def test_accuracy(csv_file):
 
 
 # Exemple d'utilisation
-csv_file = './trainings outputs/train4.csv'
+csv_file = './trainings outputs/train_test_test.csv'
 test_accuracy(csv_file)

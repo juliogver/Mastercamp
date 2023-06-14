@@ -1,7 +1,8 @@
 import pandas as pd
+import re
 
 # Chemin d'accès au fichier CSV
-csv_file = "./Datas/5.csv"
+csv_file = "./Datas/test_out.csv"
 
 # Listes de mots synonymes de "Rating" et "Commentary"
 rating_synonyms = ["Rating", "Grade", "Evaluation",
@@ -15,7 +16,10 @@ commentary_synonyms = [syn.lower() for syn in commentary_synonyms]
 
 # Lecture du fichier CSV
 # ATTENTION : LOOK THE DELIMITER CAN BE A COMMA OR A SEMICOLON
-df = pd.read_csv(csv_file)
+df = pd.read_csv(csv_file, encoding='utf-8')
+
+# Suppression des emojis du contenu
+df = df.applymap(lambda x: re.sub('[^\x00-\x7F]+', '', str(x)))
 
 # Convertir les noms de colonnes en minuscules pour une correspondance insensible à la casse
 df.columns = [col.lower() for col in df.columns]
@@ -73,5 +77,5 @@ def map_sentiment(rate):
 new_df["Sentiment"] = new_df["Rate"].apply(map_sentiment)
 
 # Enregistrement du nouveau DataFrame dans un fichier CSV
-new_csv_file = "./Datas/5_out.csv"
+new_csv_file = f'./{csv_file}_processing.csv'
 new_df.to_csv(new_csv_file, index=False)

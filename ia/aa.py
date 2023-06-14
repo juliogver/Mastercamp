@@ -32,16 +32,16 @@ def preprocess_text(text):
  # Return empty string for non-valid values
 # Load the Logistic Regression model
 clf_lr = pickle.load(
-    open('./ia/ia_models/logistic_regression_model3.pkl', 'rb'))
+    open('./ia/ia_models/logistic_regression_model4.pkl', 'rb'))
 
 # Load the Neural Network model
-clf_nn = load_model('./ia/ia_models/neural_network_model3.h5')
+clf_nn = load_model('./ia/ia_models/neural_network_model4.h5')
 
 # Load the TfidfVectorizer used during training
 vectorizer = pickle.load(open('./ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
 
 # Load the CSV file
-df = pd.read_csv('./Datas/input.csv')
+df = pd.read_csv('./Datas/test_out_out.csv')
 
 # Preprocess the comments
 df['processed_text'] = df['Comment'].apply(preprocess_text)
@@ -61,4 +61,4 @@ df['Rating_LR'] = lr_predictions
 df['Rating_NN'] = nn_predictions
 
 # Save the ratings to a new CSV file
-df.to_csv('./trainings outputs/train4.csv', index=False)
+df.to_csv('./trainings outputs/train_test_test.csv', index=False)
