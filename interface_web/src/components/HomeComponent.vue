@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="bg-white dark:bg-gray-900">
-      <!-- Header code goes here -->
+      
     </header>
 
     <section class="bg-gray-900 text-white">
@@ -34,7 +34,24 @@
     </section>
 
     <footer class="bg-gray-100 dark:bg-gray-900">
-      <!-- Footer code goes here -->
+      <div class="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
+        <div class="lg:flex lg:items-end lg:justify-between">
+          <div>
+            <div class="flex justify-center text-teal-600 dark:text-teal-300 lg:justify-start">
+              <img src="../assets/logo_copy.png" class="h-70 w-40" alt="Logo">
+            </div>
+
+            <p class="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 dark:text-gray-400 lg:text-left">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Incidunt consequuntur amet culpa cum itaque neque.
+            </p>
+          </div>
+          <!-- Add the rest of the footer code from your previous HTML page -->
+        </div>
+
+        <p class="mt-12 text-center text-sm text-gray-500 dark:text-gray-400 lg:text-right">
+          Copyright &copy; 2022. All rights reserved.
+        </p>
+      </div>
     </footer>
   </div>
 </template>
@@ -111,6 +128,8 @@ export default {
 };
 </script>
 
-<style>
-/* Add any custom styles here */
+<style >
+@import url('../style/output.css');
+@import url('../style/tailwind.css');
+
 </style>

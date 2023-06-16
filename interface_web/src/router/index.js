@@ -9,7 +9,7 @@ const routes = [
         name: 'Home',
         component: HomeView
     },
-
+ 
 ]
 
 
