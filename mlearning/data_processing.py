@@ -2,7 +2,7 @@ import pandas as pd
 import re
 
 # Chemin d'accès au fichier CSV
-csv_file = "./Datas/test_out.csv"
+csv_file = "./Datas/iphone.csv"
 
 # Listes de mots synonymes de "Rating" et "Commentary"
 rating_synonyms = ["Rating", "Grade", "Evaluation",
