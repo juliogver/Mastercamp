@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from '/Users/enzo/Mastercamp/interface_web/src/router';
+import router from './router';
 
 createApp(App)
   .use(router)
