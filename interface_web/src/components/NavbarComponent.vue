@@ -4,7 +4,7 @@
         <div class="flex h-16 items-center justify-between">
           <div class="md:flex md:items-center md:gap-12">
             <a class="block text-teal-600 dark:text-teal-600" href="/">
-              <img src="../assets/logo_copy.png" class="h-70 w-40" alt="Logo">
+              <img src="../assets/logo.png" class="h-70 w-40" alt="Logo">
             </a>
           </div>
   
@@ -54,10 +54,6 @@
     </header>
   </template>
   
- <style >
-@import url('../style/output.css');
-@import url('../style/tailwind.css');
 
-</style>
 
   
