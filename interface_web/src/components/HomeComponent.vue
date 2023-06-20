@@ -1,3 +1,5 @@
+
+
 <template>
   <div>
     <header class="bg-white dark:bg-gray-900">
@@ -38,7 +40,7 @@
         <div class="lg:flex lg:items-end lg:justify-between">
           <div>
             <div class="flex justify-center text-teal-600 dark:text-teal-300 lg:justify-start">
-              <img src="../assets/logo_copy.png" class="h-70 w-40" alt="Logo">
+              <img src="../assets/logo.png" class="h-70 w-40" alt="Logo">
             </div>
 
             <p class="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 dark:text-gray-400 lg:text-left">
