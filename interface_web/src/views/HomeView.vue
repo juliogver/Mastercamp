@@ -1,15 +1,15 @@
 <template>
     <div>
-      <BannerComponent />
+      <HomeComponent />
     </div>
   </template>
   
   <script>
-  import BannerComponent from '@/components/BannerComponent.vue';
+  import HomeComponent from '@/components/HomeComponent.vue';
   
   export default {
     components: {
-      BannerComponent,
+      HomeComponent,
     },
   };
   </script>
