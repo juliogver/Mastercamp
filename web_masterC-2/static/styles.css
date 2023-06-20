@@ -68,11 +68,46 @@ body {
   color: #fff;
   border: none;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.button:before,
+.button:after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 .button:hover {
   background-color: #0056b3;
 }
+
+.button:hover:before,
+.button:hover:after {
+  width: 100%;
+  height: 100%;
+}
+
 
 /* Footer */
 .footer {
@@ -124,3 +159,43 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+
+
+
+.result-section {
+ 
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.result__title {
+  font-size: 32px;
+  padding: 10px;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+  width: fit-content;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.result__title:before,
+.result__title:after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: steam 20s linear infinite;
+}
+
+
+

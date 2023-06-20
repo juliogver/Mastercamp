@@ -25,20 +25,21 @@
     </header>
   
     <section class="result-section">
+      <h1 class="result__title">
+        Sentiment Analysis Result
+      </h1>
       <div class="result__container">
-        <h1 class="result__title">
-          Sentiment Analysis Result
-        </h1>
+
   
         <div class="result__content">
           <div class="result__item">
             <h2 class="result__item-title">Word Cloud</h2>
-            <img src="./wordcloud.png" alt="Word Cloud" class="result__image">
+            <img src="{{ url_for('static', filename='wordcloud.png') }}" alt="Word Cloud">
           </div>
   
           <div class="result__item">
             <h2 class="result__item-title">Sentiment Proportions</h2>
-            <img src="{{ pie_chart_filename }}" alt="Sentiment Proportions" class="result__image">
+            <img src="{{ url_for('static', filename='pie_chart.png') }}" alt="Pie Chart">
           </div>
         </div>
       </div>
