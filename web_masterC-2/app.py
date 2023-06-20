@@ -3,17 +3,21 @@ import pandas as pd
 from wordcloud import WordCloud
 import matplotlib
 matplotlib.use('Agg')  # Ajouter cette ligne avant l'import de pyplot
-
 import matplotlib.pyplot as plt
+import os
 
+# Get the absolute path of the directory where the Flask application is located
+app_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Specify the relative file paths within the static folder
+wordcloud_filename = os.path.join(app_dir, 'static', 'wordcloud.png')
+pie_chart_filename = os.path.join(app_dir, 'static', 'pie_chart.png')
 
 app = Flask(__name__)
-
 
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -32,7 +36,6 @@ def upload():
     # Rediriger vers la page de résultat
     return redirect('/result')
 
-
 def generate_wordcloud(data):
     # Concaténer les valeurs uniques de la colonne 'Review' en une seule chaîne de caractères
     text = ' '.join(data['Review'].dropna().astype(str).unique().tolist())
@@ -41,9 +44,7 @@ def generate_wordcloud(data):
     wordcloud = WordCloud(width=400, height=200, background_color='white').generate(text)
 
     # Sauvegarder le nuage de mots en tant qu'image
-    wordcloud_filename = 'C:\\Users\\enzoc\\OneDrive\\Documents\\Mastercamp\\web_masterC-2\\static\\wordcloud.png'
     wordcloud.to_file(wordcloud_filename)
-
 
 def generate_sentiment_pie_chart(data):
     # Supprimer les lignes avec des valeurs manquantes dans la colonne "Sentiment"
@@ -63,9 +64,7 @@ def generate_sentiment_pie_chart(data):
     plt.axis('equal')
 
     # Sauvegarder le graphique en tant qu'image
-    pie_chart_filename = 'C:\\Users\\enzoc\\OneDrive\\Documents\\Mastercamp\\web_masterC-2\\static\\pie_chart.png'
     plt.savefig(pie_chart_filename)
-
 
 @app.route('/result')
 def result():
@@ -73,9 +72,7 @@ def result():
     wordcloud_filename = 'static/wordcloud.png'
     pie_chart_filename = 'static/pie_chart.png'
 
-
     return render_template('result.html', wordcloud_filename=wordcloud_filename, pie_chart_filename=pie_chart_filename)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

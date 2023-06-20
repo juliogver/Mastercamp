@@ -109,12 +109,13 @@ body {
 }
 
 
-/* Footer */
 .footer {
   padding: 20px;
-  position: fixed;
+ 
+  
+  color: #fff;
+  
   bottom: 0;
-  width: 100%;
 }
 
 .footer__container {
@@ -194,7 +195,7 @@ body {
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   z-index: -1;
-  animation: steam 20s linear infinite;
+
 }
 
 
