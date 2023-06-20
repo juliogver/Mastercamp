@@ -41,7 +41,7 @@ def generate_wordcloud(data):
     wordcloud = WordCloud(width=400, height=200, background_color='white').generate(text)
 
     # Sauvegarder le nuage de mots en tant qu'image
-    wordcloud_filename = 'C:\\Users\\enzoc\\OneDrive\\Documents\\Mastercamp\\web_masterC-2\\static\\wordcloud.png'
+    wordcloud_filename = './wordcloud.png'
     wordcloud.to_file(wordcloud_filename)
 
 
