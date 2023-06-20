@@ -122,7 +122,7 @@
     <div class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
       <div class="mx-auto max-w-3xl text-center">
         <h1 class="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
-          Analyze your dataset.
+          Generate a wordcloud from your dataset.
         </h1>
         <p class="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
           Thanks to our system you'll be able to analyze the feelings from the comments of your dataset.
@@ -130,7 +130,7 @@
         <div class="mt-8 flex flex-wrap justify-center gap-4">
           <input type="file" id="csvFileInput" accept=".csv" class="hidden">
           <button class="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto" onclick="uploadCSV()">Upload CSV</button>
-          <button class="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto" onclick="analyzeComments()">Analyze Comments</button>
+          <button class="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto" onclick="generateWordCloudFromCSV()">Generate wordcloud</button>
         </div>
         <div id="chartContainer" class="mt-8 mx-auto" style="max-width: 600px; height: 400px;"></div>
       </div>
@@ -143,71 +143,67 @@
     function uploadCSV() {
       document.getElementById('csvFileInput').click();
     }
+  </script> 
 
-    // Function to analyze comments and generate the plot
-    function analyzeComments() {
-      const fileInput = document.getElementById('csvFileInput');
-      const file = fileInput.files[0];
 
-      if (file) {
-        const reader = new FileReader();
 
-        reader.onload = function (e) {
-          const contents = e.target.result;
-          const comments = parseCSV(contents);
-          const sentimentData = analyzeSentiment(comments);
-          generatePlot(sentimentData);
-        };
+  <script>
+    // JavaScript code to handle button click event
+    var button = document.getElementById("myButton");
+    button.addEventListener("click", function() {
+        // Send a request to the backend when the button is clicked
+        fetch("/button-clicked")
+            .then(response => response.text())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+    });
+</script> 
 
-        reader.readAsText(file);
+<script>
+
+function generateWordCloudFromCSV(csvFile) {
+  // Read the CSV file using PapaParse library
+  Papa.parse(csvFile, {
+    header: true, // Assumes the first row contains headers
+    dynamicTyping: true, // Converts numeric values to numbers
+    complete: function(results) {
+      if (results.errors.length > 0) {
+        console.error('Error parsing CSV:', results.errors);
+        return;
       }
-    }
 
-    // Function to parse CSV content and extract comments
-    function parseCSV(csvContent) {
-      const lines = csvContent.split('\n');
-      const comments = [];
+      // Extract the data from CSV results
+      const data = results.data;
 
-      for (let i = 1; i < lines.length; i++) {
-        const line = lines[i].trim();
-
-        if (line !== '') {
-          const comment = line.split(',')[1].trim();
-          comments.push(comment);
+      // Process the data to generate a word frequency map
+      const wordFreqMap = {};
+      for (let i = 0; i < data.length; i++) {
+        const row = data[i];
+        for (const key in row) {
+          if (row.hasOwnProperty(key)) {
+            const words = row[key].split(' ');
+            words.forEach(word => {
+              // Increment the count for each word in the word frequency map
+              wordFreqMap[word] = (wordFreqMap[word] || 0) + 1;
+            });
+          }
         }
       }
 
-      return comments;
+      // Generate the word cloud
+      const wordCloud = [];
+      for (const word in wordFreqMap) {
+        if (wordFreqMap.hasOwnProperty(word)) {
+          wordCloud.push({ text: word, weight: wordFreqMap[word] });
+        }
+      }
+
+      // Display the word cloud (using any word cloud library of your choice)
+      $('#word-cloud-container').tagcloud(wordCloud);
     }
-
-    // Function to analyze sentiment of comments (placeholder function)
-    function analyzeSentiment(comments) {
-      // Perform sentiment analysis on comments and return the data
-      // Replace this with your actual sentiment analysis implementation
-      const sentimentData = [
-        { sentiment: 'Positive', count: 10 },
-        { sentiment: 'Neutral', count: 5 },
-        { sentiment: 'Negative', count: 3 }
-      ];
-
-      return sentimentData;
-    }
-
-    // Function to generate the plot using ApexCharts library
-    function generatePlot(sentimentData) {
-      const chartOptions = {
-        series: sentimentData.map(data => data.count),
-        labels: sentimentData.map(data => data.sentiment),
-        chart: { type: 'pie' },
-        colors: ['#7EE3B4', '#4673AA', '#8A3BEB'],
-      };
-      
-
-      const chart = new ApexCharts(document.getElementById('chartContainer'), chartOptions);
-      chart.render();
-    }
-    
-  </script>
+  });
+}
+</script> 
 
 
 <!------------------------Slider--------------------------------------------------------------------->
