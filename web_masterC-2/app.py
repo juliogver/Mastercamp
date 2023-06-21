@@ -23,8 +23,12 @@ lemmatizer = WordNetLemmatizer()
 # Get the absolute path of the directory where the Flask application is located
 app_dir = os.path.dirname(os.path.abspath(__file__))
 # Specify the relative file paths within the static folder
-wordcloud_filename = os.path.join(app_dir, 'static', 'wordcloud.png')
+wordcloud_all_filename = os.path.join(app_dir, 'static', 'wordcloud_all.png')
+wordcloud_negative_filename = os.path.join(app_dir, 'static', 'wordcloud_negative.png')
+wordcloud_positive_filename= os.path.join(app_dir, 'static', 'wordcloud_postive.png')
 pie_chart_filename = os.path.join(app_dir, 'static', 'pie_chart.png')
+
+
 def preprocess_text(text):
     if isinstance(text, str):  # Check if text is a valid string
         text = text.lower()
@@ -45,23 +49,49 @@ vectorizer = pickle.load(open('./System/ia/ia_models/tfidf_vectorizer.pkl', 'rb'
 
 
 def generate_wordcloud(data):
-    # Concaténer les valeurs uniques de la colonne 'Review' en une seule chaîne de caractères
-    text = ' '.join(data['Comment'].dropna().astype(str).unique().tolist())
+    
+    sentiment_mapping = {
+        'very negative': 1,
+        'negative': 2,
+        'neutral': 3,
+        'positive': 4,
+        'very positive': 5
+    }
 
-    # Prétraitement du texte
-    preprocessed_text = preprocess_text(text)
+    data['Sentiment'] = data['Sentiment'].map(sentiment_mapping)
+    # Prétraitement des textes pour les sentiments positifs
+    positive_text = ' '.join(data[data['Sentiment'].astype(int) >= 4]['Review'].dropna().astype(str).unique().tolist())
+    
+    preprocessed_positive_text = preprocess_text(positive_text)
 
-    # Créer l'objet WordCloud
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_text)
+    # Prétraitement des textes pour les sentiments négatifs
+    negative_text = ' '.join(data[data['Sentiment'].astype(int) <= 2]['Review'].dropna().astype(str).unique().tolist())
 
-    # Sauvegarder le nuage de mots en tant qu'image
-  
-    wordcloud.to_file(wordcloud_filename)
+    preprocessed_negative_text = preprocess_text(negative_text)
+
+    # Prétraitement des textes pour tous les mots
+    all_text = ' '.join(data['Review'].dropna().astype(str).unique().tolist())
+    preprocessed_all_text = preprocess_text(all_text)
+
+    # Création des objets WordCloud
+    wordcloud_positive = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_positive_text)
+    wordcloud_negative = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_negative_text)
+    wordcloud_all = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_all_text)
+
+    # Sauvegarde des nuages de mots en tant qu'images
+
+
+    wordcloud_positive.to_file(wordcloud_positive_filename)
+    wordcloud_negative.to_file(wordcloud_negative_filename)
+    wordcloud_all.to_file(wordcloud_all_filename)
+
+    return wordcloud_positive_filename, wordcloud_negative_filename, wordcloud_all_filename
+
 
 
 def generate_sentiment_pie_chart(data):
     # Prétraitement du texte
-    data['processed_text'] = data['Comment'].apply(preprocess_text)
+    data['processed_text'] = data['Review'].apply(preprocess_text)
 
     # Transformation du texte en vecteurs avec le TfidfVectorizer
     X_vectors = vectorizer.transform(data['processed_text'])
@@ -81,7 +111,7 @@ def generate_sentiment_pie_chart(data):
     sizes = sentiment_counts.values
 
     colors = ['#00ff00', '#66ff66', 'gray', '#ff6666', '#ff0000']
-    explode = (0.1, 0, 0, 0, 0)
+    explode = (0, 0, 0, 0, 0)
 
     plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
     plt.axis('equal')

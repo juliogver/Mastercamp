@@ -30,11 +30,21 @@
       </h1>
       <div class="result__container">
 
-  
+    
+        
+        
+        
         <div class="result__content">
           <div class="result__item">
-            <h2 class="result__item-title">Word Cloud</h2>
-            <img src="{{ url_for('static', filename='wordcloud.png') }}" alt="Word Cloud">
+            <h3>Word Cloud - Sentiments Positifs</h3>
+            <img src="{{ url_for('static', filename='wordcloud_postive.png') }}" alt="Word Cloud">
+            
+            <h3>Word Cloud - Sentiments Négatifs</h3>
+            <img src="{{ url_for('static', filename='wordcloud_negative.png') }}" alt="Word Cloud">
+            
+            <h3>Word Cloud - Tous les Mots</h3>
+            <img src="{{ url_for('static', filename='wordcloud_all.png') }}" alt="Word Cloud">
+            
           </div>
   
           <div class="result__item">
