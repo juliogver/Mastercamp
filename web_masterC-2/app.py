@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 import pandas as pd
 from wordcloud import WordCloud
 import matplotlib
-matplotlib.use('Agg')  # Ajouter cette ligne avant l'import de pyplot
+matplotlib.use('Agg')  
 import matplotlib.pyplot as plt
 import os
 import pickle
@@ -24,22 +24,35 @@ lemmatizer = WordNetLemmatizer()
 app_dir = os.path.dirname(os.path.abspath(__file__))
 # Specify the relative file paths within the static folder
 wordcloud_all_filename = os.path.join(app_dir, 'static', 'wordcloud_all.png')
-wordcloud_negative_filename = os.path.join(app_dir, 'static', 'wordcloud_negative.png')
-wordcloud_positive_filename= os.path.join(app_dir, 'static', 'wordcloud_postive.png')
+wordcloud_affin_filename = os.path.join(app_dir, 'static', 'wordcloud_affin.png')
 pie_chart_filename = os.path.join(app_dir, 'static', 'pie_chart.png')
 
 
-def preprocess_text(text):
+from afinn import Afinn
+
+afinn = Afinn()
+
+def preprocess_text_normal(text):
     if isinstance(text, str):  # Check if text is a valid string
         text = text.lower()
         words = text.split()
         filtered_words = [word for word in words if word not in stop_words or word in ["not", "don't", "won't", "can't", "shouldn't", "couldn't", "wouldn't", "isn't", "aren't", "very", "just", "quite", 'about', 'above', 'across', 'after', 'against', 'along', 'among', 'around', 'as', 'at', 'before', 'behind', 'below', 'beneath', 'beside', 'between', 'beyond', 'but', 'by', 'concerning',
                                                                                        'considering', 'despite', 'down', 'during', 'except', 'for', 'from', 'in', 'inside', 'into', 'like', 'near', 'of', 'off', 'on', 'onto', 'out', 'outside', 'over', 'past', 'regarding', 'round', 'since', 'through', 'throughout', 'to', 'toward', 'under', 'underneath', 'until', 'up', 'upon', 'with', 'within', 'without']]
+        sentiment_words = [word for word in filtered_words if afinn.score(word) != 0]
+        text = ' '.join(sentiment_words)
+        return text
+    else:
+        return ''  # Return empty string for non-valid valuess
+
+def preprocess_text(text):
+    if isinstance(text, str):  # Check if text is a valid string
+        text = text.lower()
+        words = text.split()
+        filtered_words = [word for word in words if word not in stop_words]
         text = ' '.join(filtered_words)
         return text
     else:
-        return ''  # Return empty string for non-valid values
-
+        return '' 
 
 # Load the Neural Network model
 nn_model = load_model('./System/ia/ia_models/neural_network_model4.h5')
@@ -50,42 +63,24 @@ vectorizer = pickle.load(open('./System/ia/ia_models/tfidf_vectorizer.pkl', 'rb'
 
 def generate_wordcloud(data):
     
-    sentiment_mapping = {
-        'very negative': 1,
-        'negative': 2,
-        'neutral': 3,
-        'positive': 4,
-        'very positive': 5
-    }
-
-    data['Sentiment'] = data['Sentiment'].map(sentiment_mapping)
-    # Prétraitement des textes pour les sentiments positifs
-    positive_text = ' '.join(data[data['Sentiment'].astype(int) >= 4]['Review'].dropna().astype(str).unique().tolist())
-    
-    preprocessed_positive_text = preprocess_text(positive_text)
-
-    # Prétraitement des textes pour les sentiments négatifs
-    negative_text = ' '.join(data[data['Sentiment'].astype(int) <= 2]['Review'].dropna().astype(str).unique().tolist())
-
-    preprocessed_negative_text = preprocess_text(negative_text)
-
+  
     # Prétraitement des textes pour tous les mots
     all_text = ' '.join(data['Review'].dropna().astype(str).unique().tolist())
     preprocessed_all_text = preprocess_text(all_text)
-
+    preprocess_affin = preprocess_text_normal(all_text)
     # Création des objets WordCloud
-    wordcloud_positive = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_positive_text)
-    wordcloud_negative = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_negative_text)
-    wordcloud_all = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_all_text)
 
+    wordcloud_all = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_all_text)
+    wordcloud_affin = WordCloud(width=800, height=400, background_color='white').generate(preprocess_affin)  
     # Sauvegarde des nuages de mots en tant qu'images
 
 
-    wordcloud_positive.to_file(wordcloud_positive_filename)
-    wordcloud_negative.to_file(wordcloud_negative_filename)
+  
     wordcloud_all.to_file(wordcloud_all_filename)
+    wordcloud_affin.to_file(wordcloud_affin_filename)
 
-    return wordcloud_positive_filename, wordcloud_negative_filename, wordcloud_all_filename
+
+    return  wordcloud_all_filename, wordcloud_affin_filename
 
 
 
@@ -144,6 +139,7 @@ def upload():
     # Lire le fichier CSV en utilisant pandas
     data = pd.read_csv(file)
 
+   
     # Générer le nuage de mots
     generate_wordcloud(data)
 
