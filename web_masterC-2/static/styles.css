@@ -207,3 +207,7 @@ body {
 
 
 
+.wordcloud{
+display: flex ;
+justify-content: center;
+}
