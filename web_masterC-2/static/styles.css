@@ -207,7 +207,28 @@ body {
 
 
 
-.wordcloud{
-display: flex ;
-justify-content: center;
+
+
+.wordcloud-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
 }
+
+.wordcloud {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.result__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow-x: hidden;
+}
+
