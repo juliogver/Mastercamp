@@ -12,7 +12,7 @@ from nltk.stem import WordNetLemmatizer
 from keras.models import load_model
 
 # Set the SSL_CERT_FILE environment variable
-os.environ['SSL_CERT_FILE'] = './cacert.pem'
+os.environ['SSL_CERT_FILE'] = './System/Machine_Learning/cacert.pem'
 
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -22,10 +22,13 @@ stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 # Get the absolute path of the directory where the Flask application is located
 app_dir = os.path.dirname(os.path.abspath(__file__))
+
 # Specify the relative file paths within the static folder
 wordcloud_all_filename = os.path.join(app_dir, 'static', 'wordcloud_all.png')
 wordcloud_affin_filename = os.path.join(app_dir, 'static', 'wordcloud_affin.png')
 pie_chart_filename = os.path.join(app_dir, 'static', 'pie_chart.png')
+histogram_filename = os.path.join(app_dir, 'static', 'sentiment_histogram.png')
+
 
 
 from afinn import Afinn
@@ -55,10 +58,10 @@ def preprocess_text(text):
         return '' 
 
 # Load the Neural Network model
-nn_model = load_model('./System/ia/ia_models/neural_network_model4.h5')
+nn_model = load_model('./System/Machine_Learning/ia_models/neural_network_model4.h5')
 
 # Load the TfidfVectorizer used during training
-vectorizer = pickle.load(open('./System/ia/ia_models/tfidf_vectorizer.pkl', 'rb'))
+vectorizer = pickle.load(open('./System/Machine_Learning/ia_models/tfidf_vectorizer.pkl', 'rb'))
 
 
 def generate_wordcloud(data):
@@ -117,6 +120,48 @@ def generate_sentiment_pie_chart(data):
     # Sauvegarde du graphique en tant qu'image
     plt.savefig(pie_chart_filename)
 
+def generate_sentiment_histogram(data):
+    # Prétraitement du texte
+    data['processed_text'] = data['Review'].apply(preprocess_text)
+
+    # Transformation du texte en vecteurs avec le TfidfVectorizer
+    X_vectors = vectorizer.transform(data['processed_text'])
+
+    # Prédiction des sentiments avec le modèle de réseau de neurones
+    sentiment_predictions = nn_model.predict(X_vectors.toarray())
+    sentiment_predictions = [label.argmax() for label in sentiment_predictions]
+
+    # Assigner les prédictions de sentiment au DataFrame
+    data['Sentiment'] = sentiment_predictions
+
+    # Compter les occurrences de chaque catégorie de sentiment
+    sentiment_counts = data['Sentiment'].value_counts()
+
+    # Réinitialiser le graphique précédent
+    plt.clf()
+
+    # Tracer l'histogramme des sentiments
+    labels = sentiment_counts.index.sort_values(ascending=True)
+
+    x = range(len(labels))
+
+    heights = sentiment_counts.loc[labels].values
+
+
+    plt.bar(x, heights, tick_label=labels, color=['#ff6666', 'gray', '#66ff66'])
+
+    # Ajouter des étiquettes aux barres
+    for i, v in enumerate(heights):
+        plt.text(i, v + 10, str(v), ha='center', va='bottom')
+
+    # Définir les titres et les étiquettes des axes
+    plt.title('Histogram of Sentiments')
+    plt.xlabel('Sentiment')
+    plt.ylabel('Count')
+
+    # Sauvegarder le graphique en tant qu'image
+    plt.savefig(histogram_filename)
+
 
 
 app = Flask(__name__)
@@ -146,8 +191,12 @@ def upload():
     # Générer le graphique circulaire des sentiments
     generate_sentiment_pie_chart(data)
 
+    generate_sentiment_histogram(data)
+
     # Rediriger vers la page de résultat
     return redirect('/result')
+
+    
 
 
 @app.route('/result')
