@@ -96,7 +96,7 @@ clf_nn.compile(loss='categorical_crossentropy',
                optimizer='adam', metrics=['accuracy'])
 
 # Train the neural network
-clf_nn.fit(X_train_vectors.toarray(), dummy_y_train, epochs=10, batch_size=64)
+clf_nn.fit(X_train_vectors.toarray(), dummy_y_train, epochs=150, batch_size=64)
 
 # Save the neural network
 clf_nn.save('./System/Machine_Learning/ia_models/neural_network_model.h5')

@@ -104,3 +104,5 @@ print("Logistic Regression Model Accuracy:", accuracy_lr)
 loss, accuracy_nn = clf_nn.evaluate(X_test_vectors.toarray(), to_categorical(
     test_data['Sentiment'], num_classes=num_classes))
 print("Neural Network Model Accuracy:", accuracy_nn)
+
+
