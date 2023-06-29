@@ -36,15 +36,18 @@
         
         <div class="result__content">
           <div class="result__item">
-           
-            
-            <h3>Word Cloud - Affin</h3>
-            <img src="{{ url_for('static', filename='wordcloud_affin.png') }}" alt="Word Cloud" class = "wordcloud">
-            
-            <h3>Word Cloud - Stop Word </h3>
-            <img src="{{ url_for('static', filename='wordcloud_all.png') }}" alt="Word Cloud" class = "wordcloud">
-            
+            <div class="wordcloud-container">
+              <div>
+                <h3>Word Cloud - Affin</h3>
+                <img src="{{ url_for('static', filename='wordcloud_affin.png') }}" alt="Word Cloud" class="wordcloud">
+              </div>
+              <div>
+                <h3>Word Cloud - Stop Word</h3>
+                <img src="{{ url_for('static', filename='wordcloud_all.png') }}" alt="Word Cloud" class="wordcloud">
+              </div>
+            </div>
           </div>
+          
   
           <div class="result__item">
             <h2 class="result__item-title">Sentiment Proportions</h2>
