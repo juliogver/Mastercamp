@@ -10,6 +10,8 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from keras.models import load_model
+from matplotlib.colors import ListedColormap
+
 
 # Set the SSL_CERT_FILE environment variable
 os.environ['SSL_CERT_FILE'] = './System/Machine_Learning/cacert.pem'
@@ -29,8 +31,12 @@ wordcloud_affin_filename = os.path.join(app_dir, 'static', 'wordcloud_affin.png'
 pie_chart_filename = os.path.join(app_dir, 'static', 'pie_chart.png')
 histogram_filename = os.path.join(app_dir, 'static', 'sentiment_histogram.png')
 
+# Set colormap for limited colors
+colormap = 'Set3'
 
 
+
+# Import Afinn
 from afinn import Afinn
 
 afinn = Afinn()
@@ -73,8 +79,9 @@ def generate_wordcloud(data):
     preprocess_affin = preprocess_text_normal(all_text)
     # Création des objets WordCloud
 
-    wordcloud_all = WordCloud(width=800, height=400, background_color='white').generate(preprocessed_all_text)
-    wordcloud_affin = WordCloud(width=800, height=400, background_color='white').generate(preprocess_affin)  
+    wordcloud_all = WordCloud(width=800, height=400, background_color=None, colormap=colormap).generate(preprocessed_all_text)
+    wordcloud_affin = WordCloud(width=800, height=400, background_color=None, colormap=colormap).generate(preprocess_affin)
+
     # Sauvegarde des nuages de mots en tant qu'images
 
 
@@ -84,6 +91,7 @@ def generate_wordcloud(data):
 
 
     return  wordcloud_all_filename, wordcloud_affin_filename
+
 
 
 
@@ -118,7 +126,8 @@ def generate_sentiment_pie_chart(data):
     plt.axis('equal')
 
     # Sauvegarde du graphique en tant qu'image
-    plt.savefig(pie_chart_filename)
+    plt.savefig(pie_chart_filename, transparent=True)
+
 
 def generate_sentiment_histogram(data):
     # Prétraitement du texte
@@ -160,7 +169,8 @@ def generate_sentiment_histogram(data):
     plt.ylabel('Count')
 
     # Sauvegarder le graphique en tant qu'image
-    plt.savefig(histogram_filename)
+    plt.savefig(histogram_filename, transparent=True)
+
 
 
 

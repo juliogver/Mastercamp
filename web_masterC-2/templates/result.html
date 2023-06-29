@@ -51,11 +51,14 @@
   
           <div class="result__item">
             <h2 class="result__item-title">Sentiment Proportions</h2>
-            <img src="{{ url_for('static', filename='pie_chart.png') }}" alt="Pie Chart">
-            <img src="{{ url_for('static', filename='sentiment_histogram.png') }}" alt="Sentiment Histogram">
+            <div class="sentiment-container">
+           
+            <img src="{{ url_for('static', filename='pie_chart.png') }}" alt="Pie Chart" class = 'sentiment' class="transparent-background">
+            <img src="{{ url_for('static', filename='sentiment_histogram.png') }}" alt="Sentiment Histogram" class = 'sentiment'class="transparent-background" >
           </div>
         </div>
       </div>
+    </div>
     </section>
   
     <footer class="footer">

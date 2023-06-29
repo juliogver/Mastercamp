@@ -232,3 +232,19 @@ body {
   overflow-x: hidden;
 }
 
+.sentiment-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.sentiment {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+}
+.transparent-background {
+  background-color: #111827 /* Remplacez par la couleur de fond souhaitée */
+}
