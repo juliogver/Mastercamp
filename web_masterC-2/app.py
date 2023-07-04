@@ -120,13 +120,21 @@ def generate_sentiment_pie_chart(data):
     sizes = sentiment_counts.values
 
     colors = ['#00ff00', '#66ff66', 'gray', '#ff6666', '#ff0000']
-    explode = (0, 0, 0, 0, 0)
+    explode = (0.1, 0.1, 0.1, 0.1, 0.1)
 
-    plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-    plt.axis('equal')
+    patches, texts, autotexts = plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90, pctdistance=0.85)
+
+    # Définir la couleur du texte des étiquettes en blanc
+    for text in texts:
+        text.set_color('white')
+
+    # Définir la couleur du texte des pourcentages en blanc
+    for autotext in autotexts:
+        autotext.set_color('white')
 
     # Sauvegarde du graphique en tant qu'image
     plt.savefig(pie_chart_filename, transparent=True)
+
 
 
 def generate_sentiment_histogram(data):
@@ -148,28 +156,42 @@ def generate_sentiment_histogram(data):
 
     # Réinitialiser le graphique précédent
     plt.clf()
-
+    
     # Tracer l'histogramme des sentiments
     labels = sentiment_counts.index.sort_values(ascending=True)
 
     x = range(len(labels))
-
     heights = sentiment_counts.loc[labels].values
 
-
-    plt.bar(x, heights, tick_label=labels, color=['#ff6666', 'gray', '#66ff66'])
+    bar_plot = plt.bar(x, heights, tick_label=labels, color=['#ff6666', 'gray', '#66ff66'])
 
     # Ajouter des étiquettes aux barres
     for i, v in enumerate(heights):
-        plt.text(i, v + 10, str(v), ha='center', va='bottom')
+        plt.text(i, v + 10, str(v), ha='center', va='bottom', color='white')
 
-    # Définir les titres et les étiquettes des axes
-    plt.title('Histogram of Sentiments')
-    plt.xlabel('Sentiment')
-    plt.ylabel('Count')
+    # Définir les titres et les étiquettes des axes en blanc
+    plt.title('Histogram of Sentiments', color='white')
+    plt.xlabel('Sentiment', color='white')
+    plt.ylabel('Count', color='white')
+
+    # Définir la couleur du texte des axes en blanc
+    ax = plt.gca()
+    ax.xaxis.label.set_color('white')
+    ax.yaxis.label.set_color('white')
+    ax.tick_params(axis='x', colors='white')
+    ax.tick_params(axis='y', colors='white')
+
+    # Définir la couleur des traits d'axe en blanc
+    ax.spines['bottom'].set_color('white')
+    ax.spines['left'].set_color('white')
+
+    # Définir la couleur de fond du graphique sur une couleur autre que blanc
+    ax.set_facecolor('#222222')
 
     # Sauvegarder le graphique en tant qu'image
     plt.savefig(histogram_filename, transparent=True)
+
+  
 
 
 

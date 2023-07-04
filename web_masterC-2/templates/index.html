@@ -3,6 +3,27 @@
   <head>
     <title>MoodIT</title>
     <link href="../static/styles.css" rel="stylesheet">
+    <script>
+      function showLoadingGif() {
+        document.getElementById('loadingGif').style.display = 'block';
+        const formData = new FormData(document.getElementById('uploadForm'));
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/upload', true);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            document.getElementById('loadingGif').style.display = 'none';
+            // Redirect to the /result page
+            window.location.href = '/result';
+          } else {
+            console.log('An error occurred');
+          }
+        };
+        xhr.send(formData);
+      }
+    
+      
+      
+    </script>
   </head>
   <body>
     <header class="header">
@@ -26,21 +47,25 @@
   
     <section class="hero">
       <div class="analyze-section">
-      <div class="hero__container">
+      <div class="heroa__container">
         <h1 class="hero__title">
           Analyze your dataset.
         </h1>
         <p class="hero__description">
           Thanks to our system, you'll be able to analyze the sentiments from the comments of your dataset.
         </p>
-        <form action="/upload" method="post" enctype="multipart/form-data" class="hero__actions">
+        <form id="uploadForm" class="hero__actions">
           <label for="csvFileInput" class="button button-primary" class="file-upload">
             Upload CSV
             <input type="file" name="file" id="csvFileInput" accept=".csv" class="hidden">
           </label>
-          <button type="submit" class="button button-primary">Analyze Comments</button>
+          <button type="button" class="button button-primary" onclick="showLoadingGif()">Analyze Comments</button>
         </form>
         <div id="chartContainer" class="chart"></div>
+      </div>
+
+      <div class="gif" id="loadingGif" style="display: none;">
+        <img src="../static/giphy-3.gif" alt="Loading...">
       </div>
     </div>
     </section>
