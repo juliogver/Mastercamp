@@ -4,7 +4,7 @@
     <title>MoodIT</title>
     <link href="../static/styles.css" rel="stylesheet">
     <script>
-      function showLoadingGif() {
+      function showLoadingSpinner() {
         document.getElementById('loadingGif').style.display = 'block';
         const formData = new FormData(document.getElementById('uploadForm'));
         const xhr = new XMLHttpRequest();
@@ -20,6 +20,7 @@
         };
         xhr.send(formData);
       }
+      
     
       
       
@@ -47,29 +48,46 @@
   
     <section class="hero">
       <div class="analyze-section">
-      <div class="heroa__container">
-        <h1 class="hero__title">
-          Analyze your dataset.
-        </h1>
-        <p class="hero__description">
-          Thanks to our system, you'll be able to analyze the sentiments from the comments of your dataset.
-        </p>
-        <form id="uploadForm" class="hero__actions">
-          <label for="csvFileInput" class="button button-primary" class="file-upload">
-            Upload CSV
-            <input type="file" name="file" id="csvFileInput" accept=".csv" class="hidden">
-          </label>
-          <button type="button" class="button button-primary" onclick="showLoadingGif()">Analyze Comments</button>
-        </form>
-        <div id="chartContainer" class="chart"></div>
+        <div class="hero__container">
+          <h1 class="hero__title">
+            Analyze your dataset.
+          </h1>
+          <p class="hero__description">
+            Thanks to our system, you'll be able to analyze the sentiments from the comments of your dataset.
+          </p>
+          <form id="uploadForm" class="hero__actions">
+            <label for="csvFileInput" class="button button-primary" class="file-upload">
+              Upload CSV
+              <input type="file" name="file" id="csvFileInput" accept=".csv" class="hidden">
+            </label>
+            <button type="button" class="button button-primary" onclick="showLoadingSpinner()">Analyze Comments</button>
+          </form>
+          <div class="loader" id="loadingGif" style="display: none;">
+            <svg width="0" height="0">
+              <filter id="gooey-plasma">
+                   <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur"/>
+                   <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 50 -16" result="goo" />
+               </filter>
+             </svg>
+             <div class="plasma">
+               <div class="gooey-container">
+                 <span class="bubble"></span>
+                 <span class="bubble"></span>
+                 <span class="bubble"></span>
+                 <span class="bubble"></span>
+                 <span class="bubble"></span>
+                 <span class="bubble"></span>
+               </div>
+             </div>
+          
+          
+          
+          
+          <div id="chartContainer" class="chart"></div>
+        </div>
       </div>
-
-      <div class="gif" id="loadingGif" style="display: none;">
-        <img src="../static/giphy-3.gif" alt="Loading...">
-      </div>
-    </div>
     </section>
-  
+    
     <footer class="footer">
       <div class="footer__container">
         <div class="footer__logo">
@@ -89,3 +107,4 @@
     </footer>
   </body>
 </html>
+

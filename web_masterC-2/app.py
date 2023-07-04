@@ -163,7 +163,7 @@ def generate_sentiment_histogram(data):
     x = range(len(labels))
     heights = sentiment_counts.loc[labels].values
 
-    bar_plot = plt.bar(x, heights, tick_label=labels, color=['#ff6666', 'gray', '#66ff66'])
+    bar_plot = plt.bar(x, heights, tick_label=labels, color=['#00ff00', '#66ff66', 'gray', '#ff6666', '#ff0000'])
 
     # Ajouter des étiquettes aux barres
     for i, v in enumerate(heights):

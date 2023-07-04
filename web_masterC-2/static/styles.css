@@ -248,3 +248,102 @@ body {
 .transparent-background {
   background-color: #111827 /* Remplacez par la couleur de fond souhaitée */
 }
+
+
+
+
+
+  
+
+
+@keyframes plasma {
+  0% {
+    transform: scale(6) translate3d(20px, 0, 0);
+  }
+  50% {
+    transform: scale(1) translate3d(-60px, 0, 0);
+  }
+  100% {
+    transform: scale(6) translate3d(20px, 0, 0);
+  }
+}
+.plasma {
+  backface-visibility: hidden;
+  z-index: 20;
+  position: relative;
+  width: 100px; /* Adjust the size here */
+  height: 100px; /* Adjust the size here */
+  padding: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 30px 0 #8140ff inset;
+  margin: 0 auto;
+}
+.plasma .gooey-container {
+  filter: url(#gooey-plasma);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 0 0 20px #ff4081 inset;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.plasma .gooey-container .bubble {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  text-align: right;
+}
+.plasma .gooey-container .bubble:before {
+  content: "";
+  display: inline-block;
+  background: #ff4081;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transform: scale(6) translate3d(20px, 0, 0);
+  box-shadow: 0 0 15px 0 #0000ff inset, 0 0 10px 0 #0000ff inset;
+}
+.plasma .gooey-container .bubble:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(60deg);
+}
+.plasma .gooey-container .bubble:nth-child(1):before {
+  animation: plasma 3.5s linear 0.25s infinite;
+}
+.plasma .gooey-container .bubble:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(120deg);
+}
+.plasma .gooey-container .bubble:nth-child(2):before {
+  animation: plasma 4s linear 0.5s infinite;
+}
+.plasma .gooey-container .bubble:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+.plasma .gooey-container .bubble:nth-child(3):before {
+  animation: plasma 4.5s linear 0.75s infinite;
+}
+.plasma .gooey-container .bubble:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(240deg);
+}
+.plasma .gooey-container .bubble:nth-child(4):before {
+  animation: plasma 5s linear 1s infinite;
+}
+.plasma .gooey-container .bubble:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(300deg);
+}
+.plasma .gooey-container .bubble:nth-child(5):before {
+  animation: plasma 5.5s linear 1.25s infinite;
+}
+.plasma .gooey-container .bubble:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(360deg);
+}
+.plasma .gooey-container .bubble:nth-child(6):before {
+  animation: plasma 6s linear 1.5s infinite;
+}
