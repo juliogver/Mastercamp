@@ -251,7 +251,9 @@ body {
 
 
 
-
+#plasmaImage {
+  animation: loading 2s linear infinite;
+}
 
   
 
@@ -266,6 +268,10 @@ body {
   100% {
     transform: scale(6) translate3d(20px, 0, 0);
   }
+}
+
+#plasmaImage {
+  animation: loading 2s linear infinite;
 }
 .plasma {
   backface-visibility: hidden;
@@ -328,22 +334,33 @@ body {
 }
 .plasma .gooey-container .bubble:nth-child(3):before {
   animation: plasma 4.5s linear 0.75s infinite;
+
 }
-.plasma .gooey-container .bubble:nth-child(4) {
-  transform: translate(-50%, -50%) rotate(240deg);
+
+.loading-text {
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
 }
-.plasma .gooey-container .bubble:nth-child(4):before {
-  animation: plasma 5s linear 1s infinite;
+
+.dot {
+  animation: dot 1s infinite;
 }
-.plasma .gooey-container .bubble:nth-child(5) {
-  transform: translate(-50%, -50%) rotate(300deg);
+
+@keyframes dot {
+  0%, 60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-.plasma .gooey-container .bubble:nth-child(5):before {
-  animation: plasma 5.5s linear 1.25s infinite;
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
 }
-.plasma .gooey-container .bubble:nth-child(6) {
-  transform: translate(-50%, -50%) rotate(360deg);
-}
-.plasma .gooey-container .bubble:nth-child(6):before {
-  animation: plasma 6s linear 1.5s infinite;
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
 }
