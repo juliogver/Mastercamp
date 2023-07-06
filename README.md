@@ -2,7 +2,7 @@
 Mastercamp project
 
 But du projet :
--> Avoir une base de données de sentiments / avis et définir si ils sont positifs ou négatifs et attribuer une note sur 10
+-> Avoir une base de données de sentiments / avis et définir si ils sont positifs ou négatifs et attribuer une note sur 10 \\
 -> Avoir un dataset type csv ou autre rempli de commentaires OU scrap un url sur le site de l'entreprise (POSSIBILITE D'AVOIR LES DEUX)
 -> Traiter les données 
 -> Création d'un IA permettant d'annalyser les données(comparer avec database)
