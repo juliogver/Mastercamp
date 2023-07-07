@@ -11,10 +11,14 @@ L'application web développée permettra aux utilisateurs de télécharger un fi
 
 Les fonctionnalités clés du projet incluent :  
 
-Importation de fichiers CSV : Les utilisateurs peuvent télécharger un fichier CSV contenant les commentaires à analyser.
+Importation de fichiers CSV : Les utilisateurs peuvent télécharger un fichier CSV contenant les commentaires à analyser.  
+
 Traitement des données : Le système traitera les données du fichier CSV pour extraire les commentaires à analyser.  
+
 Analyse des commentaires : Une fois les commentaires extraits, le système effectuera une analyse approfondie, en utilisant des techniques d'apprentissage automatique ou de traitement du langage naturel, afin d'obtenir des informations pertinentes.  
+
 Visualisation des résultats : Les résultats de l'analyse seront présentés de manière claire et conviviale sur l'interface web, permettant aux utilisateurs de comprendre rapidement les insights obtenus à partir des commentaires.  
+
 Ce projet est conçu pour faciliter l'analyse des commentaires et fournir aux utilisateurs une meilleure compréhension des opinions et des réactions de leur public cible. En fournissant des informations précieuses sur les commentaires, il permettra aux utilisateurs de prendre des décisions plus éclairées pour améliorer leurs produits, services ou communications.  
 
 # Comment exécuter le projet  
@@ -35,14 +39,11 @@ Une fois les dépendances installées, lancez l'application en exécutant le fic
 Connectez-vous à votre navigateur web et accédez à l'URL http://localhost:5000.  
 
 Sur l'interface web, recherchez le bouton "Upload" ou "Importer" et cliquez dessus pour sélectionner le fichier CSV contenant les commentaires que vous souhaitez analyser. Attendez que le fichier se charge complètement.  
+
 Une fois le fichier CSV chargé, recherchez le bouton "Analyze Comment" ou "Analyser les commentaires" et cliquez dessus pour lancer l'analyse. Le système effectuera alors une analyse approfondie des commentaires.  
+
 Après avoir terminé l'analyse, vous verrez des visualisations et des graphiques affichant les résultats obtenus à partir des commentaires. Ces visualisations vous aideront à mieux comprendre les commentaires et à obtenir des notes fiables.  
+
 Ce processus vous permettra de tirer parti de l'application pour analyser les commentaires et obtenir des insights significatifs à partir des données fournies dans le fichier CSV. Profitez de cette fonctionnalité pour prendre des décisions éclairées basées sur l'analyse des commentaires de vos utilisateurs ou de votre public cible.  
 
-But du projet :
--> Avoir une base de données de sentiments / avis et définir si ils sont positifs ou négatifs et attribuer une note sur 10  
--> Avoir un dataset type csv ou autre rempli de commentaires OU scrap un url sur le site de l'entreprise (POSSIBILITE D'AVOIR LES DEUX)  
--> Traiter les données 
--> Création d'un IA permettant d'annalyser les données(comparer avec database)
--> Créer une API permettant de faire le lien entre l'IA et les base de données (récupérer infos de la base / créer une nouvelle)
--> Une fois la base de données créée : analyser les résultats
+
