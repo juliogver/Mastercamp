@@ -39,3 +39,10 @@ Une fois le fichier CSV chargé, recherchez le bouton "Analyze Comment" ou "Anal
 Après avoir terminé l'analyse, vous verrez des visualisations et des graphiques affichant les résultats obtenus à partir des commentaires. Ces visualisations vous aideront à mieux comprendre les commentaires et à obtenir des notes fiables.  
 Ce processus vous permettra de tirer parti de l'application pour analyser les commentaires et obtenir des insights significatifs à partir des données fournies dans le fichier CSV. Profitez de cette fonctionnalité pour prendre des décisions éclairées basées sur l'analyse des commentaires de vos utilisateurs ou de votre public cible.  
 
+But du projet :
+-> Avoir une base de données de sentiments / avis et définir si ils sont positifs ou négatifs et attribuer une note sur 10  
+-> Avoir un dataset type csv ou autre rempli de commentaires OU scrap un url sur le site de l'entreprise (POSSIBILITE D'AVOIR LES DEUX)  
+-> Traiter les données 
+-> Création d'un IA permettant d'annalyser les données(comparer avec database)
+-> Créer une API permettant de faire le lien entre l'IA et les base de données (récupérer infos de la base / créer une nouvelle)
+-> Une fois la base de données créée : analyser les résultats
